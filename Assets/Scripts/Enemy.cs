@@ -14,7 +14,7 @@ public class Enemy : MonoBehaviour
     public GameObject catMissilePrefab;
     private MissileCameraController missileCam;
 
-    public GameObject[] friendsOnField;
+    public List<GameObject> friendsOnField = new List<GameObject>();
     // Start is called before the first frame update
     void Start()
     {
@@ -30,17 +30,6 @@ public class Enemy : MonoBehaviour
         MoveUpDown();
     }
 
-    void RotateXToTarget()
-    {
-        //target one of the mice
-        friendsOnField = GameObject.FindGameObjectsWithTag("Friend");
-        int randomIndex = Random.Range(0, friendsOnField.Length);
-        GameObject target = friendsOnField[randomIndex];
-
-        //rotate around X axis to target and fire
-        //Vector3 toTarget = target.transform.position - transform.position;
-        //transform.rotation = Quaternion.FromToRotation(transform.up, toTarget);
-    }
 
     IEnumerator FireMissileAgain()
     {
@@ -55,13 +44,21 @@ public class Enemy : MonoBehaviour
     void FireMissile()
     {
         //z軸方向へ進むという前提。だからforwardとなっている。
-        //RotateXToTarget();
-        friendsOnField = GameObject.FindGameObjectsWithTag("Friend");
-        int randomIndex = Random.Range(0, friendsOnField.Length);
-        GameObject target = friendsOnField[randomIndex];
-        Vector3 toTarget = target.transform.position - transform.position;
-        GameObject missile= Instantiate(catMissilePrefab, transform.position,Quaternion.LookRotation(toTarget));
-        missileCam.Missile = missile;
+
+        //friendsOnField = GameObject.FindGameObjectsWithTag("Friend");
+        friendsOnField = SpawnManager.instance.friends;
+        Debug.Log(friendsOnField.Count);
+        if (friendsOnField.Count!=0)
+        {
+            int randomIndex = Random.Range(0, friendsOnField.Count);
+            GameObject target = friendsOnField[randomIndex];
+            if (target != null)
+            {
+                Vector3 toTarget = target.transform.position - transform.position;
+                GameObject missile= Instantiate(catMissilePrefab, transform.position +transform.right+ transform.up,Quaternion.LookRotation(toTarget)) as GameObject;
+                missileCam.Missile = missile;
+            }
+        }
 
 
         //reset rotation
@@ -94,11 +91,11 @@ public class Enemy : MonoBehaviour
 
         if (transform.position.z > moveRange)
         {
-            speed = baseSpeed * -1;
+            speed *= -1;
         }
         else if (transform.position.z < -moveRange)
         {
-            speed = baseSpeed;
+            speed *= -1;
         }
     }
 }

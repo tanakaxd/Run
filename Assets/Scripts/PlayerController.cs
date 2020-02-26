@@ -7,7 +7,7 @@ public class PlayerController : MonoBehaviour
     public GameObject friendPrefab;
 
     public float speed = 10.0f;
-    private float zBound = 7;
+    private float zBound = 14.0f;
     private int health;
     private int maxHealth = 5;
     private int healthPerFood=1;
@@ -25,6 +25,10 @@ public class PlayerController : MonoBehaviour
     {
         MovePlayer();
         ConstrainPlayerPosition();
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            Jump();
+        }
 
     }
 
@@ -53,6 +57,11 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    void Jump()
+    {
+        playerRb.AddForce(Vector3.up * 100, ForceMode.Impulse);
+    }
+
     private void OnCollisionEnter(Collision collision)
     {
         if(collision.gameObject.CompareTag("Missile"))
@@ -73,7 +82,8 @@ public class PlayerController : MonoBehaviour
         if (other.gameObject.CompareTag("Nest"))
         {
             Destroy(other.gameObject);
-            Instantiate(friendPrefab, transform.position, transform.rotation);
+            //Instantiate(friendPrefab, transform.position, transform.rotation);
+            SpawnManager.instance.SpawnFriend(transform.position);
         }
     }
 

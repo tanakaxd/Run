@@ -4,11 +4,14 @@ using UnityEngine;
 
 public class SpawnManager : MonoBehaviour
 {
+    public static SpawnManager instance;
+
     public GameObject foodPrefab;
     public GameObject nestPrefab;
     public GameObject friendPrefab;
 
-    public GameObject[] friends;
+   // public GameObject[] friends;
+    public List<GameObject> friends = new List<GameObject>();
 
     private float xSpawnRange = 15;
     private float zSpawnRange = 6;
@@ -17,7 +20,17 @@ public class SpawnManager : MonoBehaviour
     private float nestSpawnInterval = 10;
     private float startDelay = 1;
 
+    private void Awake()
+    {
+        if (instance == null)
+        {
+        instance = this;
 
+        }else if (instance != this)
+        {
+            Destroy(gameObject);
+        }
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -25,9 +38,11 @@ public class SpawnManager : MonoBehaviour
         InvokeRepeating("SpawnFood", startDelay, foodSpawnInterval);
         InvokeRepeating("SpawnNest", startDelay, nestSpawnInterval);
 
+        friends.Add(GameObject.Find("Player"));
+
         for (int i = 0; i < 5; i++)
         {
-            //SpawnFriend(GenerateRandomPosition());
+            SpawnFriend(GenerateRandomPosition());
         }
 
     }
@@ -49,17 +64,17 @@ public class SpawnManager : MonoBehaviour
 
     }
 
-    void SpawnFriend(Vector3 pos)
+    public void SpawnFriend(Vector3 pos)
     {
-        Instantiate(friendPrefab, pos, friendPrefab.transform.rotation);
+        friends.Add(Instantiate(friendPrefab, pos, friendPrefab.transform.rotation)as GameObject);
     }
 
     Vector3 GenerateRandomPosition()
     {
         float randomX = Random.Range(-xSpawnRange, xSpawnRange);
-        float randomZ = Random.Range(-zSpawnRange, zSpawnRange);
+        //float randomZ = Random.Range(-zSpawnRange, zSpawnRange);
 
-        return new Vector3(randomX, 0, randomZ);
+        return new Vector3(randomX, 0, 20);
 
     }
 }

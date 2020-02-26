@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 8929070222129626135}
   - component: {fileID: 8929070222129626134}
   - component: {fileID: 8929070222129626129}
+  - component: {fileID: 114921036756053018}
   m_Layer: 0
   m_Name: Nest
   m_TagString: Nest
@@ -93,6 +94,18 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0.000000059604645, y: 0, z: -0.00000008940697}
+--- !u!114 &114921036756053018
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8929070222129626128}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c96015f8a48bc4f4e841150fb8afe934, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &8929070223052072637
 GameObject:
   m_ObjectHideFlags: 0
