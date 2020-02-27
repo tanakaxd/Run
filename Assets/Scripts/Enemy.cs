@@ -7,8 +7,8 @@ public class Enemy : MonoBehaviour
     private float speed = 3;
     private float baseSpeed = 3;
     private float moveRange = 6;
-    private float fireRateRangeMin = 2;
-    private float fireRateRangeMax = 3;
+    private float fireRateRangeMin = 4;
+    private float fireRateRangeMax = 6;
 
     private Rigidbody catRb;
     public GameObject catMissilePrefab;
@@ -65,37 +65,40 @@ public class Enemy : MonoBehaviour
         //transform.rotation = Quaternion.Euler(0, 0, 0);
     }
 
-    void MoveUpDownRb()
-    {
-        //moving up and down
-        catRb.AddForce(Vector3.forward * speed, ForceMode.Impulse);
+    //void MoveUpDownRb()
+    //{
+    //    //moving up and down
+    //    catRb.AddForce(Vector3.forward * speed, ForceMode.Impulse);
 
-        //switching moving direction
-        if (transform.position.z > moveRange)
-        {
-            transform.position = new Vector3(transform.position.x, transform.position.y, moveRange);
-            speed = baseSpeed * -1;
+    //    //switching moving direction
+    //    if (transform.position.z > moveRange)
+    //    {
+    //        transform.position = new Vector3(transform.position.x, transform.position.y, moveRange);
+    //        speed = baseSpeed * -1;
 
-            //catRb.AddForce(Vector3.forward * speed, ForceMode.Impulse);
-        }
-        else if (transform.position.z < -moveRange)
-        {
-            transform.position = new Vector3(transform.position.x, transform.position.y, -moveRange);
-            speed = baseSpeed;
-            //catRb.AddForce(Vector3.forward * speed, ForceMode.Impulse);
-        }
-    }
+    //        //catRb.AddForce(Vector3.forward * speed, ForceMode.Impulse);
+    //    }
+    //    else if (transform.position.z < -moveRange)
+    //    {
+    //        transform.position = new Vector3(transform.position.x, transform.position.y, -moveRange);
+    //        speed = baseSpeed;
+    //        //catRb.AddForce(Vector3.forward * speed, ForceMode.Impulse);
+    //    }
+    //}
     void MoveUpDown()
     {
         transform.Translate(Vector3.forward * Time.deltaTime * speed);
 
-        if (transform.position.z > moveRange)
+        if (transform.position.z > moveRange || transform.position.z < -moveRange)
         {
             speed *= -1;
         }
-        else if (transform.position.z < -moveRange)
-        {
-            speed *= -1;
-        }
+        
+    }
+
+    private void OnDisable()
+    {
+        //何秒後かに再出現
+        //Startはreenableしても二度目は呼び出されない。missile発射caroutineを別にする必要あり
     }
 }

@@ -55,12 +55,12 @@ public class SpawnManager : MonoBehaviour
 
     void SpawnFood()
     {
-        Instantiate(foodPrefab, GenerateRandomPosition(), foodPrefab.transform.rotation);
+        Instantiate(foodPrefab, GenerateRandomPosition(20.0f), foodPrefab.transform.rotation);
     }
 
     void SpawnNest()
     {
-        Instantiate(nestPrefab, GenerateRandomPosition(), nestPrefab.transform.rotation);
+        Instantiate(nestPrefab, GenerateRandomPosition(20.0f), nestPrefab.transform.rotation);
 
     }
 
@@ -72,9 +72,18 @@ public class SpawnManager : MonoBehaviour
     Vector3 GenerateRandomPosition()
     {
         float randomX = Random.Range(-xSpawnRange, xSpawnRange);
+        float randomZ = Random.Range(-zSpawnRange, zSpawnRange);
+
+        return new Vector3(randomX, 0, randomZ);
+
+    }
+
+    Vector3 GenerateRandomPosition(float zPos)
+    {
+        float randomX = Random.Range(-xSpawnRange, xSpawnRange);
         //float randomZ = Random.Range(-zSpawnRange, zSpawnRange);
 
-        return new Vector3(randomX, 0, 20);
+        return new Vector3(randomX, 0, zPos);
 
     }
 }

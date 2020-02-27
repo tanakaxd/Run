@@ -6,13 +6,16 @@ public class PlayerController : MonoBehaviour
 {
     public GameObject friendPrefab;
 
-    public float speed = 10.0f;
-    private float zBound = 14.0f;
+    public float speed = 15.0f;
+    public float jumpForce = 100.0f;
+
+    private float zBound = 20.0f;
     private int health;
     private int maxHealth = 5;
     private int healthPerFood=1;
     private int healthPerMissile=-3;
     private Rigidbody playerRb;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -59,7 +62,7 @@ public class PlayerController : MonoBehaviour
 
     void Jump()
     {
-        playerRb.AddForce(Vector3.up * 100, ForceMode.Impulse);
+        playerRb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
     }
 
     private void OnCollisionEnter(Collision collision)
