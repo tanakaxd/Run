@@ -15,9 +15,9 @@ public class MissileController : MonoBehaviour
 
     private void Awake()
     {
-        Debug.Log("missile controller Awake() called");
+        //Debug.Log("missile controller Awake() called");
 
-        if (Random.Range(0, 10) == 0)
+        if (Random.Range(0, 100) < 1)
         {
             Broken = true;
         }
@@ -31,7 +31,7 @@ public class MissileController : MonoBehaviour
     private void Start()
     {
         catMissileRb = GetComponent<Rigidbody>();
-        Debug.Log("missile controller Start() called");
+        //Debug.Log("missile controller Start() called");
 
         missileCamera = GameObject.Find("MissileCamera").GetComponent<Camera>();
         mainCamera = GameObject.Find("Main Camera").GetComponent<Camera>();
@@ -65,18 +65,18 @@ public class MissileController : MonoBehaviour
 
     private void OnEnable()// Startより早い。awakeより遅い
     {
-        Debug.Log("missile enabled!");
+        //Debug.Log("missile enabled!");
     }
 
     private void OnDisable()
     {
-        Debug.Log("missile disabled!");
+        //Debug.Log("missile disabled!");
         missileCamera.enabled = false;
         mainCamera.enabled = true;
     }
 
     private void OnDestroy()
     {
-        Debug.Log("missile destroyed!");
+        //Debug.Log("missile destroyed!");
     }
 }

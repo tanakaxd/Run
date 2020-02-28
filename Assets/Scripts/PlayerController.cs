@@ -14,6 +14,7 @@ public class PlayerController : MonoBehaviour
     private int maxHealth = 5;
     private int healthPerFood=1;
     private int healthPerMissile=-3;
+    private bool isJumping;
     private Rigidbody playerRb;
 
     // Start is called before the first frame update
@@ -69,7 +70,7 @@ public class PlayerController : MonoBehaviour
     {
         if(collision.gameObject.CompareTag("Missile"))
         {
-            Debug.Log("crashed into the enemy");
+            //Debug.Log("crashed into the enemy");
             ChangeHealth(healthPerMissile);
         }
     }
@@ -93,7 +94,7 @@ public class PlayerController : MonoBehaviour
     public void ChangeHealth(int amount)
     {
         health = Mathf.Clamp(health + amount, 0, 5);
-        Debug.Log(health + " / " + maxHealth);
+        //Debug.Log(health + " / " + maxHealth);
         UIHealthBar.instance.SetHealth((float)health / maxHealth);
     }
 }

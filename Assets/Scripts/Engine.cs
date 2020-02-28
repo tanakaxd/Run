@@ -5,12 +5,12 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-public class WorldManager : MonoBehaviour
+public class Engine : MonoBehaviour
 {
     //sceneにまたがるUI系の情報？
 
 
-    public static WorldManager instance;
+    public static Engine instance;
 
     public TextMeshProUGUI scoreText;
     public TextMeshProUGUI gameoverText;
@@ -61,12 +61,12 @@ public class WorldManager : MonoBehaviour
 
     public void StartGame()
     {
-        SceneManager.LoadScene(0);
+        SceneManager.LoadScene("MainScene");
     }
 
     public void RestartGame()
     {
-        SceneManager.LoadScene(0);
+        SceneManager.LoadScene("MainScene");
         UpdateScore(0);
     }
 }

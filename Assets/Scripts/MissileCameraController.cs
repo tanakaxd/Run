@@ -14,7 +14,7 @@ public class MissileCameraController : MonoBehaviour
         set
         {
             missile = value;
-            Debug.Log("missile assigned");
+            //Debug.Log("missile assigned");
             missileController = missile.GetComponent<MissileController>();
 
             if ((!missileController.Broken) && (missileController.InCamera))

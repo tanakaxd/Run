@@ -28,5 +28,12 @@ public class Detonate : MonoBehaviour
         {
             Destroy(gameObject);
         }
+        else if (collision.gameObject.CompareTag("Enemy"))
+        {
+            Destroy(gameObject);
+
+            collision.gameObject.SetActive(false);
+            Debug.Log("Enemy hit");
+        }
     }
 }

@@ -7,11 +7,15 @@ public class Enemy : MonoBehaviour
     private float speed = 3;
     private float baseSpeed = 3;
     private float moveRange = 6;
-    private float fireRateRangeMin = 4;
-    private float fireRateRangeMax = 6;
+    private float fireRateRangeMin = 3;
+    private float fireRateRangeMax = 3;
+    private float deviationPerShots = 5.0f;
+    private float respawnRate = 5.0f;
+    private float frozenAfterRespawn = 1.5f;
+    public int shotsPerFire { get; set; }
 
-    private Rigidbody catRb;
     public GameObject catMissilePrefab;
+    private Rigidbody catRb;
     private MissileCameraController missileCam;
 
     public List<GameObject> friendsOnField = new List<GameObject>();
@@ -19,9 +23,9 @@ public class Enemy : MonoBehaviour
     void Start()
     {
         catRb = GetComponent<Rigidbody>();
-        StartCoroutine(FireMissileAgain());
-        //InvokeRepeating("FireMissile", 1, fireRateRangeMax);
+        FireMissile();
         missileCam = GameObject.Find("MissileCamera").GetComponent<MissileCameraController>();
+        shotsPerFire = 3;
     }
 
     // Update is called once per frame
@@ -31,21 +35,12 @@ public class Enemy : MonoBehaviour
     }
 
 
-    IEnumerator FireMissileAgain()
-    {
-        float nextInterval = Random.Range(fireRateRangeMin, fireRateRangeMax);
-        yield return new WaitForSeconds(nextInterval);
-        FireMissile();
-        StartCoroutine(FireMissileAgain());
-
-    }
     
     
     void FireMissile()
     {
         //z軸方向へ進むという前提。だからforwardとなっている。
 
-        //friendsOnField = GameObject.FindGameObjectsWithTag("Friend");
         friendsOnField = SpawnManager.instance.friends;
         Debug.Log(friendsOnField.Count);
         if (friendsOnField.Count!=0)
@@ -55,36 +50,21 @@ public class Enemy : MonoBehaviour
             if (target != null)
             {
                 Vector3 toTarget = target.transform.position - transform.position;
-                GameObject missile= Instantiate(catMissilePrefab, transform.position +transform.right+ transform.up,Quaternion.LookRotation(toTarget)) as GameObject;
+                Vector3 newPos = transform.position + transform.right*2 + transform.up; //Enemyの前にくるように調整。軸が変
+                for (int i = 0; i < shotsPerFire; i++)
+                {
+                    Quaternion angle = Quaternion.Euler(0,deviationPerShots*i,0) * Quaternion.LookRotation(toTarget);
+                GameObject missile= Instantiate(catMissilePrefab, newPos+transform.forward*(-2)*i, angle) as GameObject;
                 missileCam.Missile = missile;
+
+                }
             }
         }
 
-
-        //reset rotation
-        //transform.rotation = Quaternion.Euler(0, 0, 0);
+        float nextInterval = Random.Range(fireRateRangeMin, fireRateRangeMax);
+        Invoke("FireMissile", nextInterval);
     }
 
-    //void MoveUpDownRb()
-    //{
-    //    //moving up and down
-    //    catRb.AddForce(Vector3.forward * speed, ForceMode.Impulse);
-
-    //    //switching moving direction
-    //    if (transform.position.z > moveRange)
-    //    {
-    //        transform.position = new Vector3(transform.position.x, transform.position.y, moveRange);
-    //        speed = baseSpeed * -1;
-
-    //        //catRb.AddForce(Vector3.forward * speed, ForceMode.Impulse);
-    //    }
-    //    else if (transform.position.z < -moveRange)
-    //    {
-    //        transform.position = new Vector3(transform.position.x, transform.position.y, -moveRange);
-    //        speed = baseSpeed;
-    //        //catRb.AddForce(Vector3.forward * speed, ForceMode.Impulse);
-    //    }
-    //}
     void MoveUpDown()
     {
         transform.Translate(Vector3.forward * Time.deltaTime * speed);
@@ -93,12 +73,26 @@ public class Enemy : MonoBehaviour
         {
             speed *= -1;
         }
-        
+    }
+
+    private void Respawn()
+    {
+        gameObject.SetActive(true);
+        Invoke("FireMissile", frozenAfterRespawn);
+
+        //FireMissile();
     }
 
     private void OnDisable()
     {
+        CancelInvoke("FireMissile");
         //何秒後かに再出現
-        //Startはreenableしても二度目は呼び出されない。missile発射caroutineを別にする必要あり
+        Invoke("Respawn", respawnRate);
+
+    }
+
+    private void OnEnable()
+    {
+        //Invoke("FireMissile", 1.0f);
     }
 }
