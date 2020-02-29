@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 public class SpawnManager : MonoBehaviour
@@ -10,7 +9,7 @@ public class SpawnManager : MonoBehaviour
     public GameObject nestPrefab;
     public GameObject friendPrefab;
 
-   // public GameObject[] friends;
+    [HideInInspector]
     public List<GameObject> friends = new List<GameObject>();
 
     private float xSpawnRange = 15;
@@ -24,16 +23,16 @@ public class SpawnManager : MonoBehaviour
     {
         if (instance == null)
         {
-        instance = this;
-
-        }else if (instance != this)
+            instance = this;
+        }
+        else if (instance != this)
         {
             Destroy(gameObject);
         }
     }
 
     // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
         InvokeRepeating("SpawnFood", startDelay, foodSpawnInterval);
         InvokeRepeating("SpawnNest", startDelay, nestSpawnInterval);
@@ -44,46 +43,41 @@ public class SpawnManager : MonoBehaviour
         {
             SpawnFriend(GenerateRandomPosition());
         }
-
     }
 
     // Update is called once per frame
-    void Update()
+    private void Update()
     {
-    
     }
 
-    void SpawnFood()
+    private void SpawnFood()
     {
-        Instantiate(foodPrefab, GenerateRandomPosition(20.0f), foodPrefab.transform.rotation);
+        Instantiate(foodPrefab, GenerateRandomPosition(30.0f), foodPrefab.transform.rotation);
     }
 
-    void SpawnNest()
+    private void SpawnNest()
     {
-        Instantiate(nestPrefab, GenerateRandomPosition(20.0f), nestPrefab.transform.rotation);
-
+        Instantiate(nestPrefab, GenerateRandomPosition(30.0f), nestPrefab.transform.rotation);
     }
 
     public void SpawnFriend(Vector3 pos)
     {
-        friends.Add(Instantiate(friendPrefab, pos, friendPrefab.transform.rotation)as GameObject);
+        friends.Add(Instantiate(friendPrefab, pos, friendPrefab.transform.rotation) as GameObject);
     }
 
-    Vector3 GenerateRandomPosition()
+    private Vector3 GenerateRandomPosition()
     {
         float randomX = Random.Range(-xSpawnRange, xSpawnRange);
         float randomZ = Random.Range(-zSpawnRange, zSpawnRange);
 
         return new Vector3(randomX, 0, randomZ);
-
     }
 
-    Vector3 GenerateRandomPosition(float zPos)
+    private Vector3 GenerateRandomPosition(float zPos)
     {
         float randomX = Random.Range(-xSpawnRange, xSpawnRange);
         //float randomZ = Random.Range(-zSpawnRange, zSpawnRange);
 
         return new Vector3(randomX, 0, zPos);
-
     }
 }

@@ -5,10 +5,10 @@ public class MissileController : MonoBehaviour
     private Camera mainCamera;
     private Camera missileCamera;
 
-    private Rigidbody catMissileRb;
+    private Rigidbody missileRb;
 
-    private float speed = 1.0f;
-    private float torque = 10.0f;
+    private float speed = 20.0f;
+    private float torque = 20.0f;
     private float xDestroy = 25;
     public bool Broken { get; set; }
     public bool InCamera { get; set; }
@@ -17,11 +17,11 @@ public class MissileController : MonoBehaviour
     {
         //Debug.Log("missile controller Awake() called");
 
-        if (Random.Range(0, 100) < 1)
+        if (Random.Range(0, 100) ==0)
         {
             Broken = true;
         }
-        if (Random.Range(0, 10) == 0)
+        if (Random.Range(0, 100) == 0)
         {
             InCamera = true;
         }
@@ -30,7 +30,7 @@ public class MissileController : MonoBehaviour
     // Start is called before the first frame update
     private void Start()
     {
-        catMissileRb = GetComponent<Rigidbody>();
+        missileRb = GetComponent<Rigidbody>();
         //Debug.Log("missile controller Start() called");
 
         missileCamera = GameObject.Find("MissileCamera").GetComponent<Camera>();
@@ -46,15 +46,15 @@ public class MissileController : MonoBehaviour
     // Update is called once per frame
     private void Update()
     {
-        catMissileRb.AddForce(transform.forward * speed, ForceMode.Impulse);
+        missileRb.AddForce(transform.forward * speed);
 
         if (Broken)
         {
-            catMissileRb.AddTorque(transform.up * torque, ForceMode.Impulse);
+            missileRb.AddTorque(transform.up * torque);
         }
         else
         {
-            catMissileRb.AddTorque(transform.forward * torque, ForceMode.Impulse);
+            missileRb.AddTorque(transform.forward * torque);
         }
 
         if (transform.position.x > xDestroy || transform.position.x < -xDestroy)
@@ -71,8 +71,8 @@ public class MissileController : MonoBehaviour
     private void OnDisable()
     {
         //Debug.Log("missile disabled!");
-        missileCamera.enabled = false;
-        mainCamera.enabled = true;
+        if(missileCamera!=null)missileCamera.enabled = false;
+        if (mainCamera != null) mainCamera.enabled = true;
     }
 
     private void OnDestroy()

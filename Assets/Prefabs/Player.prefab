@@ -92,8 +92,8 @@ GameObject:
   - component: {fileID: 6640690833346356055}
   - component: {fileID: 6640690833346356054}
   - component: {fileID: 6640690833346356049}
-  - component: {fileID: 6640690833346356053}
   - component: {fileID: 6640690833346356138}
+  - component: {fileID: 114298013115328004}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -109,7 +109,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6640690833346356048}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.53, z: -0.07}
+  m_LocalPosition: {x: 0, y: 6.25, z: 0}
   m_LocalScale: {x: 1.5, y: 1.5, z: 1.5}
   m_Children:
   - {fileID: 6640690835078863815}
@@ -168,27 +168,12 @@ SphereCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6640690833346356048}
-  m_Material: {fileID: 13400000, guid: 21a2ce4d0f2eb164c8775c6c1234ebaf, type: 2}
-  m_IsTrigger: 0
-  m_Enabled: 0
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
   serializedVersion: 2
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &6640690833346356053
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6640690833346356048}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ccd579628e6a2fa40857ff355e9cf409, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  friendPrefab: {fileID: 5242576426444771246, guid: a605b827680af8849850b2346b17fc73,
-    type: 3}
-  speed: 10
 --- !u!54 &6640690833346356138
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -205,6 +190,24 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 112
   m_CollisionDetection: 0
+--- !u!114 &114298013115328004
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6640690833346356048}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ccd579628e6a2fa40857ff355e9cf409, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 25
+  xspeed: 10
+  zspeed: 10
+  jumpForce: 300
+  forceMultiplier: 50
+  onGround: 0
 --- !u!1 &6640690833614302744
 GameObject:
   m_ObjectHideFlags: 0
@@ -1075,12 +1078,12 @@ BoxCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6640690835078863814}
-  m_Material: {fileID: 13400000, guid: 21a2ce4d0f2eb164c8775c6c1234ebaf, type: 2}
+  m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.09535928, y: 0.20925139, z: 0.2990962}
-  m_Center: {x: -0.009940743, y: 0.10475489, z: 0.014246034}
+  m_Size: {x: 0.09535928, y: 0.20735195, z: 0.29909638}
+  m_Center: {x: -0.009940744, y: 0.09595573, z: 0.014246035}
 --- !u!1 &6640690835129560395
 GameObject:
   m_ObjectHideFlags: 0

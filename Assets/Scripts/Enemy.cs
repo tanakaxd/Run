@@ -42,7 +42,7 @@ public class Enemy : MonoBehaviour
         //z軸方向へ進むという前提。だからforwardとなっている。
 
         friendsOnField = SpawnManager.instance.friends;
-        Debug.Log(friendsOnField.Count);
+        //Debug.Log(friendsOnField.Count);
         if (friendsOnField.Count!=0)
         {
             int randomIndex = Random.Range(0, friendsOnField.Count);
