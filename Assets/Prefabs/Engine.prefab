@@ -45,6 +45,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   scoreText: {fileID: 0}
   gameoverText: {fileID: 0}
-  restartButton: {fileID: 0}
   isGameover: 0
   score: 0
+  timeLapse: 0
+  gravityModifier: 3

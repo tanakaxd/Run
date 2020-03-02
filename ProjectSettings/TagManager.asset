@@ -12,6 +12,12 @@ TagManager:
   - Wall
   - Missile
   - Ground
+  - Boundary
+  - ObstacleRemover
+  - Dollar
+  - Star
+  - Fire
+  - Button
   layers:
   - Default
   - TransparentFX
@@ -22,11 +28,11 @@ TagManager:
   - 
   - 
   - PostProcessing
-  - 
-  - 
-  - 
-  - 
-  - 
+  - Boundary
+  - Explosive
+  - Friendry
+  - ObstacleRemover
+  - Button
   - 
   - 
   - 

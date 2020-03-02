@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
 
 public class Detonate : MonoBehaviour
 {
@@ -12,31 +13,38 @@ public class Detonate : MonoBehaviour
     {
     }
 
+   IEnumerator DetonateSelf()
+    {
+        SphereCollider blast = GetComponent<SphereCollider>();
+        blast.enabled = true;
+        yield return null;
+        Destroy(gameObject);
+
+    }
+
     private void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.CompareTag("Friend"))
         {
             SpawnManager.instance.friends.Remove(collision.gameObject);
-            Destroy(gameObject);
             Destroy(collision.gameObject);
         }
         else if (collision.gameObject.CompareTag("Wall"))
         {
-            Destroy(gameObject);
         }
         else if (collision.gameObject.CompareTag("Player"))
         {
-            Destroy(gameObject);
         }
         else if (collision.gameObject.CompareTag("Enemy"))
         {
-            Destroy(gameObject);
             collision.gameObject.SetActive(false);
         }
         else if (collision.gameObject.CompareTag("Missile"))
         {
-            Destroy(gameObject);
         }
+
+        StartCoroutine("DetonateSelf");
+
 
     }
 }

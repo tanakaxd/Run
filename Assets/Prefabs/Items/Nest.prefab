@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 8929070222129626134}
   - component: {fileID: 8929070222129626129}
   - component: {fileID: 114921036756053018}
+  - component: {fileID: 54624979461070456}
   m_Layer: 0
   m_Name: Nest
   m_TagString: Nest
@@ -106,6 +107,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c96015f8a48bc4f4e841150fb8afe934, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!54 &54624979461070456
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8929070222129626128}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1 &8929070223052072637
 GameObject:
   m_ObjectHideFlags: 0
